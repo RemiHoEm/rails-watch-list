@@ -1,0 +1,32 @@
+<div class="container">
+  <h2><%= @list.name %></h2>
+
+  <div class="container mt-3">
+    <div class="row">
+    <% @list.movies.each do |movie| %>
+    <!-- Card -->
+      <div class="col-md-4">
+        <div class="p-2 g-col-6 bg-image card shadow-1-strong gap-3" style="background-size: cover; background-image:url('<%= movie.poster_url %>');">
+          <div class="text-white p-8">
+            <h5 class="card-title"><%= movie.title %></h5>
+            <p class="card-text d-flex"><%= movie.overview %></p>
+            <span class="badge rounded-pill p-10"><%= movie.rating %></span>
+          </div>
+        </div>
+      </div>
+    <!-- Card -->
+    <% end %>
+    </div>
+  </div>
+
+  <div class="container m-4 w-50">
+    <h3>Add a movie to the list</h3>
+    <%= simple_form_for [@list, @bookmark] do |f| %>
+      <%= f.input :comment %>
+      <%= f.association :movie %>
+      <%= f.submit "Add movie", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
+  <%= link_to "back to List", lists_path %>
+</div>
